@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+/*
+ * ARCLINE ARCHITECTS design tokens.
+ * Brand palette (from the brief): ivory, white, charcoal, stone, sand, olive.
+ * "-deep" shades are derived, darker variants of stone/olive for SMALL text,
+ * because the original stone and olive are too light for AA contrast at small sizes
+ * on ivory. Use the base stone/olive only for large text, borders, and decoration.
+ */
+@theme {
+  --color-*: initial;
+  --color-ivory: #f6f4ef;
+  --color-white: #ffffff;
+  --color-charcoal: #242522;
+  --color-stone: #8c8b83;
+  --color-sand: #dcd4c6;
+  --color-olive: #777b65;
+  --color-stone-deep: #5c5b54;
+  --color-olive-deep: #555a46;
+  --color-error: #9b2c1f;
+
+  --font-serif: "Cormorant Variable", "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --text-display: clamp(3rem, 8.2vw, 7.25rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.02em;
+  --text-h1: clamp(2.5rem, 5.6vw, 5rem);
+  --text-h1--line-height: 1;
+  --text-h1--letter-spacing: -0.015em;
+  --text-h2: clamp(2rem, 4vw, 3.5rem);
+  --text-h2--line-height: 1.05;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h3: clamp(1.5rem, 2.2vw, 2rem);
+  --text-h3--line-height: 1.15;
+  --text-lead: clamp(1.125rem, 1.5vw, 1.375rem);
+  --text-lead--line-height: 1.55;
+
+  --breakpoint-3xl: 112rem;
+}
+
+:root {
+  --header-h: 4.5rem;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-olive);
+  color: var(--color-white);
+}
+
+/* Visible keyboard focus everywhere. */
+:focus-visible {
+  outline: 2px solid var(--color-olive-deep);
+  outline-offset: 3px;
+}
+
+/* Small uppercase label used for categories, eyebrows, and meta. */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Fine architectural rule. */
+@utility hairline {
+  border-color: color-mix(in srgb, var(--color-charcoal) 18%, transparent);
+}
+
+/* Short entrance used on hero copy only. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-rise {
+  animation: rise 0.9s var(--ease-out) both;
+}
+
+/* Respect reduced-motion preferences across the whole site. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
